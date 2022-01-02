@@ -15,12 +15,12 @@ namespace UniversityDesktop.ViewModels
         private readonly string _MarksPagePath = "../Pages/MarksPage.xaml";
 
         private string _currentFramePage;
-        private string _studentName;
-        private string _studentLastname;
-        private string _studentPatronymic;
-        private string _studentGroup;
-        private string _specialtyNumber;
-        private string _specialtyName;
+        private string _studentName = "Дмитрий";
+        private string _studentLastname = "Тришин";
+        private string _studentPatronymic = "Александрович";
+        private string _studentGroup = "М8О-311Б-19";
+        private string _specialtyNumber = "02.03.02";
+        private string _specialtyName = "Фундаментальная информатика и информационные технологии";
         
         private ICommand _eventsButtonCommand;
         private ICommand _examTimetableButtonCommand;

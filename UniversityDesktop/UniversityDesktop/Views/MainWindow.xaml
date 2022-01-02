@@ -13,25 +13,31 @@
     </Window.DataContext>
     
     <Window.Resources>
-        <ControlTemplate TargetType="Button" x:Key="btTemplate">
-            <Border CornerRadius="25" 
-                    BorderBrush="RoyalBlue" 
-                    BorderThickness="1"
-                    Background="White">
-                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Border>
-        </ControlTemplate>
-        
-        <ControlTemplate TargetType="Frame" x:Key="frameTemplate">
-            <Border CornerRadius="25"
-                    BorderBrush="White"
-                    BorderThickness="1"
-                    Background="White">
-                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Border>
-        </ControlTemplate>
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                         <Border Name="OuterBorder"
+                                 CornerRadius="25"
+                                 BorderBrush="RoyalBlue"
+                                 BorderThickness="1"
+                                 Background="White">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="OuterBorder" Property="Background" Value="Azure" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="OuterBorder" Property="Background" Value="LightSkyBlue" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
-    
     
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
@@ -63,21 +69,21 @@
                                    HorizontalAlignment="Left"/>
                     <WrapPanel Orientation="Horizontal"
                             Margin="0 15 0 0">
-                     <TextBlock FontSize="20"
+                     <TextBlock FontSize="30"
                                 FontFamily="Arial"
                                 Foreground="White"
                                 Margin="10 0 0 0"
-                                Text="Тришин" />
-                     <TextBlock FontSize="20"
+                                Text="{Binding StudentLastname}" />
+                     <TextBlock FontSize="30"
                                 FontFamily="Arial"
                                 Foreground="White"
                                 Margin="10 0 0 0"
-                                Text="Дмитрий" />
-                     <TextBlock FontSize="20"
+                                Text="{Binding StudentName}" />
+                     <TextBlock FontSize="30"
                                 FontFamily="Arial"
                                 Foreground="White"
                                 Margin="10 0 0 0"
-                                Text="Александрович" />
+                                Text="{Binding StudentPatronymic}" />
                     </WrapPanel>
                     <TextBlock Margin="10 15 10 5"
                             FontSize="15"
@@ -88,7 +94,7 @@
                             FontSize="20"
                             FontFamily="Arial"
                             Foreground="White"
-                            Text="М8О-311Б-19" />
+                            Text="{Binding StudentGroup}" />
                     <TextBlock Margin="10 15 10 5"
                             FontSize="15"
                             FontFamily="Arial"
@@ -98,7 +104,7 @@
                             FontSize="20"
                             FontFamily="Arial"
                             Foreground="White"
-                            Text="02.03.02" />
+                            Text="{Binding SpecialtyNumber}" />
                     <TextBlock Margin="10 15 10 5"
                             FontSize="15"
                             FontFamily="Arial"
@@ -110,7 +116,7 @@
                                 FontSize="20"
                                 FontFamily="Arial"
                                 Foreground="White"
-                                Text="Фундаментальная информатика и информационные технологии" />
+                                Text="{Binding SpecialtyName}" />
                     </StackPanel>
                 </StackPanel>
             </Border>
@@ -124,38 +130,34 @@
                             Height="70"
                             FontSize="20"
                             FontFamily="Arial"
-                            FontWeight="Medium"
                             Foreground="RoyalBlue"
-                            Content="Расписание занятий" 
-                            Template="{StaticResource btTemplate}" 
+                            Content="Расписание занятий"
+                            Style="{StaticResource ButtonStyle}"
                             Command="{Binding LessonTimetableButtonCommand}">
                     </Button>
                     <Button Margin="10 10 10 10" 
                             Height="70"
                             FontSize="20"
                             FontFamily="Arial"
-                            FontWeight="Medium"
                             Foreground="RoyalBlue"
                             Content="Расписание сессии"
-                            Template="{StaticResource btTemplate}" 
+                            Style="{StaticResource ButtonStyle}"
                             Command="{Binding ExamButtonCommand}" />
                     <Button Margin="10 10 10 10" 
                             Height="70" 
                             FontSize="20"
                             FontFamily="Arial"
-                            FontWeight="Medium"
                             Foreground="RoyalBlue"
-                            Content="Оценки" 
-                            Template="{StaticResource btTemplate}" 
+                            Content="Оценки"
+                            Style="{StaticResource ButtonStyle}"
                             Command="{Binding MarksButtonCommand}" />
                     <Button Margin="10 10 10 10" 
                             Height="70" 
                             FontSize="20"
                             FontFamily="Arial"
-                            FontWeight="Medium"
                             Foreground="RoyalBlue"
-                            Content="Мероприятия" 
-                            Template="{StaticResource btTemplate}" 
+                            Content="Мероприятия"
+                            Style="{StaticResource ButtonStyle}"
                             Command="{Binding EventsButtonCommand}" />
                 </StackPanel>
             </Border>
