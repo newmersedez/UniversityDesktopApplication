@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "UniversityDesktop/1.0.0": {
+        "dependencies": {
+          "UniversityDesktop.MVVM.Core": "1.0.0"
+        },
+        "runtime": {
+          "UniversityDesktop.dll": {}
+        }
+      },
+      "UniversityDesktop.MVVM.Core/1.0.0": {
+        "runtime": {
+          "UniversityDesktop.MVVM.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "UniversityDesktop/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UniversityDesktop.MVVM.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

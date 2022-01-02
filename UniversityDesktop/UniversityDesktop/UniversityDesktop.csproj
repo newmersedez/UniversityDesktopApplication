@@ -6,4 +6,17 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Images" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\UniversityDesktop.MVVM.Core\UniversityDesktop.MVVM.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Images\mai.png" />
+      <Resource Include="Images\mai.png" />
+    </ItemGroup>
+
 </Project>

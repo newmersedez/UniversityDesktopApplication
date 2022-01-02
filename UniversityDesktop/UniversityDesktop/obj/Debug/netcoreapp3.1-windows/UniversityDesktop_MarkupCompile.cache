@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop\App.xaml
-11407045341
+52056599360
 
-3-1233169557
-192-1533232326
-MainWindow.xaml;
+8-1266228676
+193-113810909
+Pages\EventsPage.xaml;Pages\ExamTimetablePage.xaml;Pages\LessonTimetablePage.xaml;Pages\MarksPage.xaml;Views\MainWindow.xaml;
 
-True
+False
 
