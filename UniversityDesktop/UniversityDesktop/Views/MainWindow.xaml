@@ -6,7 +6,7 @@
         xmlns:viewModel="clr-namespace:UniversityDesktop.ViewModels"
         xmlns:local="clr-namespace:UniversityDesktop"
         mc:Ignorable="d"
-        Title="Электронная зачетка МАИ" MinHeight="840" MinWidth="1280" WindowState="Maximized" Background="#E6E6E6" >
+        Title="Электронная зачетка МАИ" MinHeight="840" MinWidth="1280" WindowState="Normal" Background="#E6E6E6">
     
     <Window.DataContext>
         <viewModel:ViewModel />
