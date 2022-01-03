@@ -6,7 +6,7 @@
         xmlns:viewModel="clr-namespace:UniversityDesktop.ViewModels"
         xmlns:local="clr-namespace:UniversityDesktop"
         mc:Ignorable="d"
-        Title="Электронная зачетка МАИ" Height="720" Width="1280" WindowState="Maximized" Background="#E6E6E6" >
+        Title="Электронная зачетка МАИ" MinHeight="840" MinWidth="1280" WindowState="Maximized" Background="#E6E6E6" >
     
     <Window.DataContext>
         <viewModel:ViewModel />
@@ -65,53 +65,53 @@
                     <Image Source="../Images/mai.png"
                                    Width="100"
                                    Height="100"
-                                   Margin="10 10 0 0"
+                                   Margin="20 20 0 0"
                                    HorizontalAlignment="Left"/>
                     <WrapPanel Orientation="Horizontal"
-                            Margin="0 15 0 0">
-                     <TextBlock FontSize="30"
+                            Margin="0 8 0 0">
+                     <TextBlock FontSize="33"
                                 FontFamily="Arial"
                                 Foreground="White"
-                                Margin="10 0 0 0"
+                                Margin="20 0 0 0"
                                 Text="{Binding StudentLastname}" />
-                     <TextBlock FontSize="30"
+                     <TextBlock FontSize="33"
                                 FontFamily="Arial"
                                 Foreground="White"
                                 Margin="10 0 0 0"
                                 Text="{Binding StudentName}" />
-                     <TextBlock FontSize="30"
+                     <TextBlock FontSize="33"
                                 FontFamily="Arial"
                                 Foreground="White"
-                                Margin="10 0 0 0"
+                                Margin="20 0 0 0"
                                 Text="{Binding StudentPatronymic}" />
                     </WrapPanel>
-                    <TextBlock Margin="10 15 10 5"
+                    <TextBlock Margin="20 10 10 5"
                             FontSize="15"
                             FontFamily="Arial"
                             Foreground="LightGray"
                             Text="Группа"/>
-                    <TextBlock Margin="10 5 10 5"
+                    <TextBlock Margin="20 0 10 5"
                             FontSize="20"
                             FontFamily="Arial"
                             Foreground="White"
                             Text="{Binding StudentGroup}" />
-                    <TextBlock Margin="10 15 10 5"
+                    <TextBlock Margin="20 10 10 5"
                             FontSize="15"
                             FontFamily="Arial"
                             Foreground="LightGray"
                             Text="Код специальности"/>
-                    <TextBlock Margin="10 5 10 5"
+                    <TextBlock Margin="20 0 10 5"
                             FontSize="20"
                             FontFamily="Arial"
                             Foreground="White"
                             Text="{Binding SpecialtyNumber}" />
-                    <TextBlock Margin="10 15 10 5"
+                    <TextBlock Margin="20 10 10 5"
                             FontSize="15"
                             FontFamily="Arial"
                             Foreground="LightGray"
                             Text="Направление"/>
                     <StackPanel Orientation="Vertical">
-                     <TextBlock Margin="10 5 10 5"
+                     <TextBlock Margin="20 0 10 5"
                                 TextWrapping="Wrap"
                                 FontSize="20"
                                 FontFamily="Arial"
@@ -126,7 +126,7 @@
                     CornerRadius="25"
                     Background="White">
                 <StackPanel VerticalAlignment="Center">
-                    <Button Margin="10 10 10 10" 
+                    <Button Margin="20 10 20 10" 
                             Height="70"
                             FontSize="20"
                             FontFamily="Arial"
@@ -135,7 +135,7 @@
                             Style="{StaticResource ButtonStyle}"
                             Command="{Binding LessonTimetableButtonCommand}">
                     </Button>
-                    <Button Margin="10 10 10 10" 
+                    <Button Margin="20 10 20 10" 
                             Height="70"
                             FontSize="20"
                             FontFamily="Arial"
@@ -143,7 +143,7 @@
                             Content="Расписание сессии"
                             Style="{StaticResource ButtonStyle}"
                             Command="{Binding ExamButtonCommand}" />
-                    <Button Margin="10 10 10 10" 
+                    <Button Margin="20 10 20 10" 
                             Height="70" 
                             FontSize="20"
                             FontFamily="Arial"
@@ -151,7 +151,7 @@
                             Content="Оценки"
                             Style="{StaticResource ButtonStyle}"
                             Command="{Binding MarksButtonCommand}" />
-                    <Button Margin="10 10 10 10" 
+                    <Button Margin="20 10 20 10" 
                             Height="70" 
                             FontSize="20"
                             FontFamily="Arial"

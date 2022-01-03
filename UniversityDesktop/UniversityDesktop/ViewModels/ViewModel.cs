@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using UniversityDesktop.MVVM.Core.Command;
 using UniversityDesktop.MVVM.Core.ViewModel;
@@ -26,6 +29,10 @@ namespace UniversityDesktop.ViewModels
         private ICommand _examTimetableButtonCommand;
         private ICommand _lessonTimetableButtonCommand;
         private ICommand _marksButtonCommand;
+
+        private const string _host = "localhost";
+        private const int _port = 5430;
+        private byte[] _buffer = new byte[1024];
 
         #endregion
 
@@ -91,17 +98,93 @@ namespace UniversityDesktop.ViewModels
         }
 
         public ICommand EventsButtonCommand =>
-            _eventsButtonCommand = new RelayCommand(_ => { CurrentFramePage = _eventsPagePath; });
+            _eventsButtonCommand = new RelayCommand(_ => GetEvents());
 
         public ICommand ExamButtonCommand =>
-            _examTimetableButtonCommand = new RelayCommand(_ => { CurrentFramePage = _examTimetablePagePath; });
+            _examTimetableButtonCommand = new RelayCommand(_ => GetExams());
         
         public ICommand LessonTimetableButtonCommand =>
-            _lessonTimetableButtonCommand = new RelayCommand(_ => { CurrentFramePage = _lessonTimetablePagePath; });
+            _lessonTimetableButtonCommand = new RelayCommand(_ => GetLessons());
         
         public ICommand MarksButtonCommand =>
-            _marksButtonCommand = new RelayCommand(_ => { CurrentFramePage = _MarksPagePath; });
+            _marksButtonCommand = new RelayCommand(_ => GetMarks());
         
+
+        #endregion
+
+        #region Functions
+
+        private void GetEvents()
+        {
+            try
+            {
+                Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _socket.Connect(IPAddress.Loopback, _port);
+                _buffer = Encoding.ASCII.GetBytes("Events");
+                _socket.Send(_buffer);
+                _socket.Shutdown(SocketShutdown.Both);
+                _socket.Close();
+                CurrentFramePage = _eventsPagePath;
+            }
+            catch (SocketException)
+            {
+                MessageBox.Show("Failed to get server response", "Error");
+            }
+        }
+        
+        private void GetExams()
+        {
+            try
+            {
+                Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _socket.Connect(IPAddress.Loopback, _port);
+                _buffer = Encoding.ASCII.GetBytes("Exams");
+                _socket.Send(_buffer);
+                _socket.Shutdown(SocketShutdown.Both);
+                _socket.Close();
+                CurrentFramePage = _examTimetablePagePath;
+            }
+            catch (SocketException)
+            {
+                MessageBox.Show("Failed to get server response", "Error");
+            }
+        }
+        
+        private void GetLessons()
+        {
+            try
+            {
+                Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _socket.Connect(IPAddress.Loopback, _port);
+                _buffer = Encoding.ASCII.GetBytes("Lessons");
+                _socket.Send(_buffer);
+                _socket.Shutdown(SocketShutdown.Both);
+                _socket.Close();
+                CurrentFramePage = _lessonTimetablePagePath;
+            }
+            catch (SocketException)
+            {
+                MessageBox.Show("Failed to get server response", "Error");
+            }
+        }
+        
+        private void GetMarks()
+        {
+            try
+            {
+                Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _socket.Connect(IPAddress.Loopback, _port);
+                _buffer = Encoding.ASCII.GetBytes("Marks");
+                _socket.Send(_buffer);
+                _socket.Shutdown(SocketShutdown.Both);
+                _socket.Close();
+                CurrentFramePage = _MarksPagePath;
+            }
+            catch (SocketException)
+            {
+                MessageBox.Show("Failed to get server response", "Error");
+            }
+        }
 
         #endregion
     }
