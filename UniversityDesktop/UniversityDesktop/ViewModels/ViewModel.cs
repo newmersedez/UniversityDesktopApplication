@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using UniversityDesktop.Classes;
 using UniversityDesktop.MVVM.Core.Command;
 using UniversityDesktop.MVVM.Core.ViewModel;
+using UniversityDesktop.Pages;
 
 namespace UniversityDesktop.ViewModels
 {

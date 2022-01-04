@@ -12,6 +12,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\UniversityDesktop.MVVM.Core\UniversityDesktop.MVVM.Core.csproj" />
+      <ProjectReference Include="..\UniversityDesktop.Pages\UniversityDesktop.Pages.csproj" />
+      <ProjectReference Include="..\UniversityDesktop.Styles\UniversityDesktop.Styles.csproj" />
     </ItemGroup>
 
     <ItemGroup>

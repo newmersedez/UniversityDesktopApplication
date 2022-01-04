@@ -23,6 +23,32 @@
         "frameworkReferences": [
           "Microsoft.WindowsDesktop.App.WPF"
         ]
+      },
+      "UniversityDesktop.Pages/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/UniversityDesktop.Pages.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UniversityDesktop.Pages.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
+      "UniversityDesktop.Styles/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/UniversityDesktop.Styles.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UniversityDesktop.Styles.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
       }
     }
   },
@@ -58,12 +84,24 @@
       "type": "project",
       "path": "../UniversityDesktop.MVVM.Core/UniversityDesktop.MVVM.Core.csproj",
       "msbuildProject": "../UniversityDesktop.MVVM.Core/UniversityDesktop.MVVM.Core.csproj"
+    },
+    "UniversityDesktop.Pages/1.0.0": {
+      "type": "project",
+      "path": "../UniversityDesktop.Pages/UniversityDesktop.Pages.csproj",
+      "msbuildProject": "../UniversityDesktop.Pages/UniversityDesktop.Pages.csproj"
+    },
+    "UniversityDesktop.Styles/1.0.0": {
+      "type": "project",
+      "path": "../UniversityDesktop.Styles/UniversityDesktop.Styles.csproj",
+      "msbuildProject": "../UniversityDesktop.Styles/UniversityDesktop.Styles.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Newtonsoft.Json >= 13.0.1",
-      "UniversityDesktop.MVVM.Core >= 1.0.0"
+      "UniversityDesktop.MVVM.Core >= 1.0.0",
+      "UniversityDesktop.Pages >= 1.0.0",
+      "UniversityDesktop.Styles >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -95,6 +133,12 @@
           "projectReferences": {
             "D:\\3 курс 5 семестр\\UniversityDesktopApplication\\UniversityDesktop\\UniversityDesktop.MVVM.Core\\UniversityDesktop.MVVM.Core.csproj": {
               "projectPath": "D:\\3 курс 5 семестр\\UniversityDesktopApplication\\UniversityDesktop\\UniversityDesktop.MVVM.Core\\UniversityDesktop.MVVM.Core.csproj"
+            },
+            "D:\\3 курс 5 семестр\\UniversityDesktopApplication\\UniversityDesktop\\UniversityDesktop.Pages\\UniversityDesktop.Pages.csproj": {
+              "projectPath": "D:\\3 курс 5 семестр\\UniversityDesktopApplication\\UniversityDesktop\\UniversityDesktop.Pages\\UniversityDesktop.Pages.csproj"
+            },
+            "D:\\3 курс 5 семестр\\UniversityDesktopApplication\\UniversityDesktop\\UniversityDesktop.Styles\\UniversityDesktop.Styles.csproj": {
+              "projectPath": "D:\\3 курс 5 семестр\\UniversityDesktopApplication\\UniversityDesktop\\UniversityDesktop.Styles\\UniversityDesktop.Styles.csproj"
             }
           }
         }

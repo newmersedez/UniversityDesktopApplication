@@ -9,7 +9,9 @@
       "UniversityDesktop/1.0.0": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.1",
-          "UniversityDesktop.MVVM.Core": "1.0.0"
+          "UniversityDesktop.MVVM.Core": "1.0.0",
+          "UniversityDesktop.Pages": "1.0.0",
+          "UniversityDesktop.Styles": "1.0.0"
         },
         "runtime": {
           "UniversityDesktop.dll": {}
@@ -26,6 +28,16 @@
       "UniversityDesktop.MVVM.Core/1.0.0": {
         "runtime": {
           "UniversityDesktop.MVVM.Core.dll": {}
+        }
+      },
+      "UniversityDesktop.Pages/1.0.0": {
+        "runtime": {
+          "UniversityDesktop.Pages.dll": {}
+        }
+      },
+      "UniversityDesktop.Styles/1.0.0": {
+        "runtime": {
+          "UniversityDesktop.Styles.dll": {}
         }
       }
     }
@@ -44,6 +56,16 @@
       "hashPath": "newtonsoft.json.13.0.1.nupkg.sha512"
     },
     "UniversityDesktop.MVVM.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UniversityDesktop.Pages/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UniversityDesktop.Styles/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

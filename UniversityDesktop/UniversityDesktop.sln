@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityDesktop", "Univer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityDesktop.MVVM.Core", "UniversityDesktop.MVVM.Core\UniversityDesktop.MVVM.Core.csproj", "{484C65C3-D94F-450D-8862-BFD5D3854D3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityDesktop.Styles", "UniversityDesktop.Styles\UniversityDesktop.Styles.csproj", "{1355F7A2-0B91-4A25-88D8-737032411057}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{484C65C3-D94F-450D-8862-BFD5D3854D3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{484C65C3-D94F-450D-8862-BFD5D3854D3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{484C65C3-D94F-450D-8862-BFD5D3854D3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1355F7A2-0B91-4A25-88D8-737032411057}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1355F7A2-0B91-4A25-88D8-737032411057}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1355F7A2-0B91-4A25-88D8-737032411057}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1355F7A2-0B91-4A25-88D8-737032411057}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
