@@ -275,34 +275,6 @@ namespace UniversityDesktop.ViewModels
             }
         }
         
-        private void GetExams()
-        {
-            try
-            {
-                Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                _socket.Connect(IPAddress.Loopback, Port);
-                _buffer = Encoding.ASCII.GetBytes("Exams");
-                _socket.Send(_buffer);
-
-                byte[] recvBuffer = new byte[1024];
-                int recvNumber = _socket.Receive(recvBuffer);
-                char[] chars = new char[recvNumber];
-                System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
-                int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
-                string recv = new string(chars);
-
-                _socket.Shutdown(SocketShutdown.Both);
-                _socket.Close();
-                
-                CurrentFramePage = _examTimetablePagePath;
-                MessageBox.Show(recv, "RECIEVED");
-            }
-            catch (SocketException)
-            {
-                MessageBox.Show("Failed to get server response", "Error");
-            }
-        }
-        
         private void GetLessons()
         {
             try
@@ -317,13 +289,46 @@ namespace UniversityDesktop.ViewModels
                 char[] chars = new char[recvNumber];
                 System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
                 int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
-                string recv = new string(chars);
+                string jsonString = new string(chars);
 
                 _socket.Shutdown(SocketShutdown.Both);
                 _socket.Close();
                 
                 CurrentFramePage = _lessonTimetablePagePath;
-                MessageBox.Show(recv, "RECIEVED");
+            }
+            catch (SocketException)
+            {
+                MessageBox.Show("Failed to get server response", "Error");
+            }
+        }
+
+        
+        private void GetExams()
+        {
+            try
+            {
+                Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _socket.Connect(IPAddress.Loopback, Port);
+                _buffer = Encoding.ASCII.GetBytes("Exams");
+                _socket.Send(_buffer);
+
+                byte[] recvBuffer = new byte[1024];
+                int recvNumber = _socket.Receive(recvBuffer);
+                char[] chars = new char[recvNumber];
+                System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
+                int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
+                string jsonString = new string(chars);
+
+                _socket.Shutdown(SocketShutdown.Both);
+                _socket.Close();
+                
+                string jsonFilePath = "\\Temp\\tmp.json";
+                string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + jsonFilePath;
+                using (StreamWriter writer = new StreamWriter(fullPath))  
+                {  
+                    writer.WriteLine(jsonString);
+                }
+                CurrentFramePage = _examTimetablePagePath;
             }
             catch (SocketException)
             {
