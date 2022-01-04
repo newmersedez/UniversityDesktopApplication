@@ -11,7 +11,6 @@ using Newtonsoft.Json;
 using UniversityDesktop.Classes;
 using UniversityDesktop.MVVM.Core.Command;
 using UniversityDesktop.MVVM.Core.ViewModel;
-using UniversityDesktop.Windows;
 
 namespace UniversityDesktop.ViewModels
 {
@@ -25,15 +24,13 @@ namespace UniversityDesktop.ViewModels
         private readonly string _MarksPagePath = "../Pages/MarksPage.xaml";
 
         private Student _student = new Student();
-        private StudentAuthentication _auth = new StudentAuthentication();
+        private readonly StudentAuthentication _auth = new StudentAuthentication();
         private string _currentFramePage;
-        private string _errorMsg;
 
         private ICommand _eventsButtonCommand;
         private ICommand _examTimetableButtonCommand;
         private ICommand _lessonTimetableButtonCommand;
         private ICommand _marksButtonCommand;
-        private ICommand _loginButtonCommand;
         private ICommand _authenticationCommand;
 
         private const int Port = 5430;
@@ -163,17 +160,6 @@ namespace UniversityDesktop.ViewModels
                 RaisePropertyChanged(nameof(StudentPassword));
             }
         }
-        
-        public string ErrorMsg
-        {
-            get =>
-                _errorMsg;
-            set
-            {
-                _errorMsg = value;
-                RaisePropertyChanged(nameof(ErrorMsg));
-            }
-        }
 
         #endregion
 
@@ -190,14 +176,7 @@ namespace UniversityDesktop.ViewModels
 
         public ICommand MarksButtonCommand =>
             _marksButtonCommand = new RelayCommand(_ => GetMarks());
-
-        public ICommand LoginButtonCommand =>
-            _loginButtonCommand = new RelayCommand(_ => {
-                RegistrationWindow regWindow = new RegistrationWindow();
-                regWindow.Show();
-                regWindow.Tag = "auth_window";
-            });
-
+        
         public ICommand AuthenticationCommand =>
             _authenticationCommand = new RelayCommand(_ => Authentication());
 
@@ -208,41 +187,41 @@ namespace UniversityDesktop.ViewModels
         private void Authentication()
         {
             if ( String.IsNullOrEmpty(_auth.StudentLogin) || String.IsNullOrEmpty(_auth.StudentPassword))
-                ErrorMsg = "Поля логина и пароля не должны быть пустыми";
+                MessageBox.Show("Поля логина и пароля не должны быть пустыми", "Ошибка");
             else
             {
                 try
                 {
                     var jsonAuthString = JsonConvert.SerializeObject(_auth);                
-                    Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    _socket.Connect(IPAddress.Loopback, Port);
+                    Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    socket.Connect(IPAddress.Loopback, Port);
                     _buffer = Encoding.ASCII.GetBytes(jsonAuthString);
-                    _socket.Send(_buffer);
+                    socket.Send(_buffer);
                 
                     byte[] recvBuffer = new byte[1024];
-                    int recvNumber = _socket.Receive(recvBuffer);
+                    int recvNumber = socket.Receive(recvBuffer);
                     char[] chars = new char[recvNumber];
                     System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
                     int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
                     string jsonString = new string(chars);
-                
+
                     if (jsonString == "[]")
-                        ErrorMsg = "Неверный логин или пароль";
+                        MessageBox.Show("Неверный логин или пароль", "Ошибка");
                     else
                     {
                         List<Student> account = (List<Student>)Newtonsoft.Json.JsonConvert.DeserializeObject(jsonString, typeof(List<Student>));
-                        ErrorMsg = "Успешный вход";
-                        StudentLastname = account[0].StudentLastname;
-                        StudentName = account[0].StudentName;
-                        StudentPatronymic = account[0].StudentPatronymic;
-                        StudentGroup = account[0].StudentGroup;
-                        StudentDegree = account[0].StudentDegree;
-                        StudentFormOfEducation = account[0].StudentFormOfEducation;
-                        SpecialtyNumber = account[0].SpecialtyNumber;
-                        SpecialtyName = account[0].SpecialtyName;
+                        _student = account[0];
+                        StudentLastname = _student.StudentLastname;
+                        StudentName = _student.StudentName;
+                        StudentPatronymic = _student.StudentPatronymic;
+                        StudentGroup = _student.StudentGroup;
+                        StudentDegree = _student.StudentDegree;
+                        StudentFormOfEducation = _student.StudentFormOfEducation;
+                        SpecialtyNumber = _student.SpecialtyNumber;
+                        SpecialtyName = _student.SpecialtyName;
                     }
-                    _socket.Shutdown(SocketShutdown.Both);
-                    _socket.Close();
+                    socket.Shutdown(SocketShutdown.Both);
+                    socket.Close();
                 }
                 catch (SocketException)
                 {

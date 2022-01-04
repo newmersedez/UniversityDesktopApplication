@@ -5,7 +5,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border Name="OuterBorder"
-                            CornerRadius="25"
+                            CornerRadius="20"
                             BorderBrush="RoyalBlue"
                             BorderThickness="1"
                             Background="White">
