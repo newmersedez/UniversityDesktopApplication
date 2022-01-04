@@ -43,15 +43,23 @@
                                Height="100"
                                Margin="20 20 0 0"
                                HorizontalAlignment="Left" />
-                        <Button DockPanel.Dock="Right"
-                                Style="{StaticResource ButtonStyle}"
-                                Height="50"
-                                Width="100"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Margin="20"
-                                Content="Войти"
-                                Command="{Binding LoginButtonCommand}"/>
+                        
+                        <DockPanel DockPanel.Dock="Right">
+                            <StackPanel DockPanel.Dock="Left"
+                                        Orientation="Vertical">
+                                <TextBox Text="{Binding StudentLogin}" />
+                                <TextBox Text="{Binding StudentPassword}" />
+                            </StackPanel>
+                            <Button DockPanel.Dock="Right"
+                                    Style="{StaticResource ButtonStyle}"
+                                    Height="50"
+                                    Width="100"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Margin="20"
+                                    Content="Войти"
+                                    Command="{Binding LoginButtonCommand}"/>
+                        </DockPanel>
                     </DockPanel>
                     <WrapPanel Orientation="Horizontal"
                                Margin="0 8 0 0">

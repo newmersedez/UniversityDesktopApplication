@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using UniversityDesktop.Classes;
 using UniversityDesktop.MVVM.Core.Command;
 using UniversityDesktop.MVVM.Core.ViewModel;
+using UniversityDesktop.Windows;
 
 namespace UniversityDesktop.ViewModels
 {
@@ -27,18 +28,6 @@ namespace UniversityDesktop.ViewModels
         private StudentAuthentication _auth = new StudentAuthentication();
         private string _currentFramePage;
         private string _errorMsg;
-        private string test = ")))";
-
-        public string Test
-        {
-            get =>
-                test;
-            set
-            {
-                test = value;
-                RaisePropertyChanged(nameof(Test));
-            }
-        }
 
         private ICommand _eventsButtonCommand;
         private ICommand _examTimetableButtonCommand;
@@ -243,7 +232,6 @@ namespace UniversityDesktop.ViewModels
                     {
                         List<Student> account = (List<Student>)Newtonsoft.Json.JsonConvert.DeserializeObject(jsonString, typeof(List<Student>));
                         ErrorMsg = "Успешный вход";
-                        Test = "aahhaha";
                         StudentLastname = account[0].StudentLastname;
                         StudentName = account[0].StudentName;
                         StudentPatronymic = account[0].StudentPatronymic;

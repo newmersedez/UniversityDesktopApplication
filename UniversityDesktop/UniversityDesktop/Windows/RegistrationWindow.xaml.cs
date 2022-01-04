@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace UniversityDesktop
+namespace UniversityDesktop.Windows
 {
     public partial class RegistrationWindow : Window
     {
