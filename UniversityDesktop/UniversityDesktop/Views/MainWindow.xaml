@@ -220,14 +220,17 @@
         </Grid>
         
         <!-- Frame with pages -->
-        <Border Grid.Column="1" 
+        <Border Grid.Column="1"
                 CornerRadius="25"
                 Background="White"
                 BorderThickness="1"
                 Margin="20 20 20 20">
-            <Frame Margin="20 20 20 20"
-                   Source="{Binding CurrentFramePage, Mode=OneWay}" 
-                   NavigationUIVisibility="Hidden" 
+            <Frame x:Name="FramePages"
+                   Margin="20 20 20 20"
+                   Source="{Binding CurrentFramePage, Mode=TwoWay}" 
+                   NavigationUIVisibility="Hidden"
+                   Height="Auto"
+                   Width="Auto"
                    Background="White"/>
         </Border>
     </Grid>

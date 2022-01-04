@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
@@ -26,6 +27,7 @@ namespace UniversityDesktop.ViewModels
 
         private Student _student = new Student();
         private readonly StudentAuthentication _auth = new StudentAuthentication();
+        private bool _authStatus = false;
         private string _currentFramePage;
 
         private ICommand _eventsButtonCommand;
@@ -33,7 +35,7 @@ namespace UniversityDesktop.ViewModels
         private ICommand _lessonTimetableButtonCommand;
         private ICommand _marksButtonCommand;
         private ICommand _authenticationCommand;
-
+        
         private const int Port = 5430;
         private byte[] _buffer = new byte[1024];
 
@@ -50,6 +52,14 @@ namespace UniversityDesktop.ViewModels
                 _currentFramePage = value;
                 RaisePropertyChanged(nameof(CurrentFramePage));
             }
+        }
+
+        public bool AuthStatus
+        {
+            get =>
+                _authStatus;
+            set =>
+                _authStatus = value;
         }
 
         public string StudentName
@@ -167,16 +177,16 @@ namespace UniversityDesktop.ViewModels
         #region Commands
 
         public ICommand EventsButtonCommand =>
-            _eventsButtonCommand = new RelayCommand(_ => GetEvents());
+            _eventsButtonCommand = new RelayCommand(_ => GetEvents(), _=>AuthStatus);
 
         public ICommand ExamButtonCommand =>
-            _examTimetableButtonCommand = new RelayCommand(_ => GetExams());
+            _examTimetableButtonCommand = new RelayCommand(_ => GetExams(), _ => AuthStatus);
 
         public ICommand LessonTimetableButtonCommand =>
-            _lessonTimetableButtonCommand = new RelayCommand(_ => GetLessons());
+            _lessonTimetableButtonCommand = new RelayCommand(_ => GetLessons(), _ => AuthStatus);
 
         public ICommand MarksButtonCommand =>
-            _marksButtonCommand = new RelayCommand(_ => GetMarks());
+            _marksButtonCommand = new RelayCommand(_ => GetMarks(), _ => AuthStatus);
         
         public ICommand AuthenticationCommand =>
             _authenticationCommand = new RelayCommand(_ => Authentication());
@@ -220,6 +230,7 @@ namespace UniversityDesktop.ViewModels
                         StudentFormOfEducation = _student.StudentFormOfEducation;
                         SpecialtyNumber = _student.SpecialtyNumber;
                         SpecialtyName = _student.SpecialtyName;
+                        AuthStatus = true;
                     }
                     socket.Shutdown(SocketShutdown.Both);
                     socket.Close();
@@ -245,13 +256,18 @@ namespace UniversityDesktop.ViewModels
                 char[] chars = new char[recvNumber];
                 System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
                 int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
-                string recv = new string(chars);
+                string jsonString = new string(chars);
 
                 _socket.Shutdown(SocketShutdown.Both);
                 _socket.Close();
-                
+
+                string jsonFilePath = "\\Temp\\tmp.json";
+                string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + jsonFilePath;
+                using (StreamWriter writer = new StreamWriter(fullPath))  
+                {  
+                    writer.WriteLine(jsonString);
+                }
                 CurrentFramePage = _eventsPagePath;
-                MessageBox.Show(recv, "RECIEVED");
             }
             catch (SocketException)
             {
@@ -265,7 +281,7 @@ namespace UniversityDesktop.ViewModels
             {
                 Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 _socket.Connect(IPAddress.Loopback, Port);
-                _buffer = Encoding.ASCII.GetBytes("Events");
+                _buffer = Encoding.ASCII.GetBytes("Exams");
                 _socket.Send(_buffer);
 
                 byte[] recvBuffer = new byte[1024];
@@ -293,7 +309,7 @@ namespace UniversityDesktop.ViewModels
             {
                 Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 _socket.Connect(IPAddress.Loopback, Port);
-                _buffer = Encoding.ASCII.GetBytes("Events");
+                _buffer = Encoding.ASCII.GetBytes("Lessons");
                 _socket.Send(_buffer);
 
                 byte[] recvBuffer = new byte[1024];
@@ -321,7 +337,7 @@ namespace UniversityDesktop.ViewModels
             {
                 Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 _socket.Connect(IPAddress.Loopback, Port);
-                _buffer = Encoding.ASCII.GetBytes("Events");
+                _buffer = Encoding.ASCII.GetBytes("Marks");
                 _socket.Send(_buffer);
 
                 byte[] recvBuffer = new byte[1024];

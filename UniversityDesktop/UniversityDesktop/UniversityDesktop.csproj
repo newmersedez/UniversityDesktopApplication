@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <Folder Include="Images" />
+      <Folder Include="Temp" />
     </ItemGroup>
 
     <ItemGroup>

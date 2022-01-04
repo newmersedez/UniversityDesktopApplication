@@ -12,3 +12,4 @@ D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\Un
 D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop.Styles\obj\Debug\netcoreapp3.1-windows\UniversityDesktop.Styles.csproj.CoreCompileInputs.cache
 D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop.Styles\obj\Debug\netcoreapp3.1-windows\UniversityDesktop.Styles.dll
 D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop.Styles\obj\Debug\netcoreapp3.1-windows\UniversityDesktop.Styles.pdb
+D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop.Styles\obj\Debug\netcoreapp3.1-windows\Styles\DataGridStyle.baml

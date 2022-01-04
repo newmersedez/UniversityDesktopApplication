@@ -8,6 +8,7 @@
              <ResourceDictionary.MergedDictionaries>
                  <ResourceDictionary Source="pack://application:,,,/UniversityDesktop.Styles;component/Styles/ButtonStyle.xaml"/>
                  <ResourceDictionary Source="pack://application:,,,/UniversityDesktop.Styles;component/Styles/TextBoxStyle.xaml"/>
+                 <ResourceDictionary Source="pack://application:,,,/UniversityDesktop.Styles;component/Styles/DataGridStyle.xaml"/>
              </ResourceDictionary.MergedDictionaries>
          </ResourceDictionary>
     </Application.Resources>

@@ -10,10 +10,6 @@ namespace UniversityDesktop.Views
         public MainWindow()
         {
             InitializeComponent();
-            // LessonsButton.IsEnabled = false;
-            // ExamsButton.IsEnabled = false;
-            // MarksButton.IsEnabled = false;
-            // EventsButton.IsEnabled = false;
         }
     }
 }
