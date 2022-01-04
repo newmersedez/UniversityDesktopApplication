@@ -47,7 +47,7 @@
                     Command="{Binding AuthenticationCommand}" />
             <TextBlock Margin="20 20 20 20"
                        Height="40"
-                       Foreground="Red"
+                       Foreground="Gray"
                        Background="#E6E6E6"
                        Text="{Binding ErrorMsg, Mode=TwoWay}" />
         </StackPanel>

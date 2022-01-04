@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using Newtonsoft.Json;
+using UniversityDesktop.Classes;
 using UniversityDesktop.MVVM.Core.Command;
 using UniversityDesktop.MVVM.Core.ViewModel;
 
@@ -17,38 +18,28 @@ namespace UniversityDesktop.ViewModels
     {
         #region Variables
 
-        // Pages
         private readonly string _eventsPagePath = "../Pages/EventsPage.xaml";
         private readonly string _examTimetablePagePath = "../Pages/ExamTimetablePage.xaml";
         private readonly string _lessonTimetablePagePath = "../Pages/LessonTimetablePage.xaml";
         private readonly string _MarksPagePath = "../Pages/MarksPage.xaml";
 
-        // Student info
-        private struct Student
-        {
-            public string StudentLastname;
-            public string StudentName;
-            public string StudentPatronymic;
-            public string StudentGroup;
-            public string StudentDegree;
-            public string StudentFormOfEducation;
-            public string SpecialtyNumber;
-            public string SpecialtyName;
-        }
-
-        // Login window info
-        private struct StudentAuthentication
-        {
-            public string StudentLogin;
-            public string StudentPassword;
-        };
-
         private Student _student = new Student();
         private StudentAuthentication _auth = new StudentAuthentication();
         private string _currentFramePage;
         private string _errorMsg;
+        private string test = ")))";
 
-        // Commands
+        public string Test
+        {
+            get =>
+                test;
+            set
+            {
+                test = value;
+                RaisePropertyChanged(nameof(Test));
+            }
+        }
+
         private ICommand _eventsButtonCommand;
         private ICommand _examTimetableButtonCommand;
         private ICommand _lessonTimetableButtonCommand;
@@ -56,9 +47,7 @@ namespace UniversityDesktop.ViewModels
         private ICommand _loginButtonCommand;
         private ICommand _authenticationCommand;
 
-        // Connection info
-        private const string _host = "local_host";
-        private const int _port = 5430;
+        private const int Port = 5430;
         private byte[] _buffer = new byte[1024];
 
         #endregion
@@ -80,64 +69,88 @@ namespace UniversityDesktop.ViewModels
         {
             get =>
                 _student.StudentName;
-            set =>
-                _student.StudentName = value;
+            set 
+            { 
+                _student. StudentName = value;
+                RaisePropertyChanged(nameof(StudentName));
+            }
         }
 
         public string StudentLastname
         {
             get =>
                 _student.StudentLastname;
-            set =>
+            set
+            {
                 _student.StudentLastname = value;
+                RaisePropertiesChanged(nameof(StudentLastname));
+            }
         }
 
         public string StudentPatronymic
         {
             get =>
                 _student.StudentPatronymic;
-            set =>
+            set
+            {
                 _student.StudentPatronymic = value;
+                RaisePropertyChanged(nameof(StudentPatronymic));
+            }
         }
 
         public string StudentGroup
         {
             get =>
                 _student.StudentGroup;
-            set =>
+            set
+            {
                 _student.StudentGroup = value;
+                RaisePropertyChanged(nameof(StudentGroup));
+            }
         }
         
         public string StudentDegree
         {
             get =>
                 _student.StudentDegree;
-            set =>
+            set
+            {
                 _student.StudentDegree = value;
+                RaisePropertyChanged(nameof(StudentDegree));
+            }
         }
 
         public string StudentFormOfEducation
         {
             get =>
                 _student.StudentFormOfEducation;
-            set =>
+            set
+            {
                 _student.StudentFormOfEducation = value;
+                RaisePropertyChanged(nameof(StudentFormOfEducation));
+            }
         }
         
         public string SpecialtyNumber
         {
             get =>
                 _student.SpecialtyNumber;
-            set =>
+            set
+            {
                 _student.SpecialtyNumber = value;
+                RaisePropertyChanged(nameof(SpecialtyNumber));
+            }
         }
 
         public string SpecialtyName
         {
             get =>
                 _student.SpecialtyName;
-            set =>
+            set
+            {
                 _student.SpecialtyName = value;
+                RaisePropertyChanged(nameof(SpecialtyName));
+            }
         }
 
         public string StudentLogin
@@ -173,6 +186,10 @@ namespace UniversityDesktop.ViewModels
             }
         }
 
+        #endregion
+
+        #region Commands
+
         public ICommand EventsButtonCommand =>
             _eventsButtonCommand = new RelayCommand(_ => GetEvents());
 
@@ -196,7 +213,7 @@ namespace UniversityDesktop.ViewModels
             _authenticationCommand = new RelayCommand(_ => Authentication());
 
         #endregion
-
+        
         #region Functions
 
         private void Authentication()
@@ -209,7 +226,7 @@ namespace UniversityDesktop.ViewModels
                 {
                     var jsonAuthString = JsonConvert.SerializeObject(_auth);                
                     Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    _socket.Connect(IPAddress.Loopback, _port);
+                    _socket.Connect(IPAddress.Loopback, Port);
                     _buffer = Encoding.ASCII.GetBytes(jsonAuthString);
                     _socket.Send(_buffer);
                 
@@ -224,8 +241,17 @@ namespace UniversityDesktop.ViewModels
                         ErrorMsg = "Неверный логин или пароль";
                     else
                     {
-                        MessageBox.Show(jsonString);
-                        ErrorMsg = "";
+                        List<Student> account = (List<Student>)Newtonsoft.Json.JsonConvert.DeserializeObject(jsonString, typeof(List<Student>));
+                        ErrorMsg = "Успешный вход";
+                        Test = "aahhaha";
+                        StudentLastname = account[0].StudentLastname;
+                        StudentName = account[0].StudentName;
+                        StudentPatronymic = account[0].StudentPatronymic;
+                        StudentGroup = account[0].StudentGroup;
+                        StudentDegree = account[0].StudentDegree;
+                        StudentFormOfEducation = account[0].StudentFormOfEducation;
+                        SpecialtyNumber = account[0].SpecialtyNumber;
+                        SpecialtyName = account[0].SpecialtyName;
                     }
                     _socket.Shutdown(SocketShutdown.Both);
                     _socket.Close();
@@ -242,7 +268,7 @@ namespace UniversityDesktop.ViewModels
             try
             {
                 Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                _socket.Connect(IPAddress.Loopback, _port);
+                _socket.Connect(IPAddress.Loopback, Port);
                 _buffer = Encoding.ASCII.GetBytes("Events");
                 _socket.Send(_buffer);
 
@@ -270,7 +296,7 @@ namespace UniversityDesktop.ViewModels
             try
             {
                 Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                _socket.Connect(IPAddress.Loopback, _port);
+                _socket.Connect(IPAddress.Loopback, Port);
                 _buffer = Encoding.ASCII.GetBytes("Events");
                 _socket.Send(_buffer);
 
@@ -298,7 +324,7 @@ namespace UniversityDesktop.ViewModels
             try
             {
                 Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                _socket.Connect(IPAddress.Loopback, _port);
+                _socket.Connect(IPAddress.Loopback, Port);
                 _buffer = Encoding.ASCII.GetBytes("Events");
                 _socket.Send(_buffer);
 
@@ -326,7 +352,7 @@ namespace UniversityDesktop.ViewModels
             try
             {
                 Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                _socket.Connect(IPAddress.Loopback, _port);
+                _socket.Connect(IPAddress.Loopback, Port);
                 _buffer = Encoding.ASCII.GetBytes("Events");
                 _socket.Send(_buffer);
 
