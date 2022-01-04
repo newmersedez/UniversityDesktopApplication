@@ -12,33 +12,6 @@
         <viewModel:ViewModel />
     </Window.DataContext>
     
-    <Window.Resources>
-        <Style TargetType="Button" x:Key="ButtonStyle">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                         <Border Name="OuterBorder"
-                                 CornerRadius="25"
-                                 BorderBrush="RoyalBlue"
-                                 BorderThickness="1"
-                                 Background="White">
-                            <ContentPresenter HorizontalAlignment="Center" 
-                                              VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="OuterBorder" Property="Background" Value="Azure" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="OuterBorder" Property="Background" Value="LightSkyBlue" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
-    
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -57,18 +30,31 @@
                 <RowDefinition Height="0.1*" />
                 <RowDefinition Height="1.2*" />
             </Grid.RowDefinitions>
+            
             <!-- Student info -->
             <Border Grid.Row="0" 
                     CornerRadius="25" 
                     Background="RoyalBlue">
                 <StackPanel Orientation="Vertical">
-                    <Image Source="../Images/mai.png"
-                                   Width="100"
-                                   Height="100"
-                                   Margin="20 20 0 0"
-                                   HorizontalAlignment="Left"/>
+                    <DockPanel>
+                        <Image DockPanel.Dock="Left" 
+                               Source="../Images/mai.png"
+                               Width="100"
+                               Height="100"
+                               Margin="20 20 0 0"
+                               HorizontalAlignment="Left" />
+                        <Button DockPanel.Dock="Right"
+                                Style="{StaticResource ButtonStyle}"
+                                Height="50"
+                                Width="100"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Margin="20"
+                                Content="Войти"
+                                Command="{Binding LoginButtonCommand}"/>
+                    </DockPanel>
                     <WrapPanel Orientation="Horizontal"
-                            Margin="0 8 0 0">
+                               Margin="0 8 0 0">
                      <TextBlock FontSize="33"
                                 FontFamily="Arial"
                                 Foreground="White"

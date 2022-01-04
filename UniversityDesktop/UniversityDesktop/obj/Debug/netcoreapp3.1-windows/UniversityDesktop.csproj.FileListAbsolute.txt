@@ -30,3 +30,8 @@ D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\Un
 D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop\bin\Debug\netcoreapp3.1-windows\UniversityDesktop.MVVM.Core.pdb
 D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop\obj\Debug\netcoreapp3.1-windows\GeneratedInternalTypeHelper.g.cs
 D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop\obj\Debug\netcoreapp3.1-windows\UniversityDesktop.csproj.CopyComplete
+D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop\obj\Debug\netcoreapp3.1-windows\Windows\RegistrationWindow.g.cs
+D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop\obj\Debug\netcoreapp3.1-windows\Windows\RegistrationWindow.baml
+D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop\obj\Debug\netcoreapp3.1-windows\Styles\ButtonStyle.baml
+D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop\obj\Debug\netcoreapp3.1-windows\App.baml
+D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop\obj\Debug\netcoreapp3.1-windows\Styles\TextBoxStyle.baml

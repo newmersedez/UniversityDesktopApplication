@@ -14,7 +14,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
-        <TextBlock Text="Events" 
+        <TextBlock Text="Lessons" 
                    FontSize="50"/>
     </Grid>
 </Page>
