@@ -19,6 +19,9 @@
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="OuterBorder" Property="Background" Value="LightSkyBlue" />
                         </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="OuterBorder" Property="Background" Value="#e6e6e6" />
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

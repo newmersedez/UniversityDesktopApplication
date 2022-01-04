@@ -3,9 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:converter="clr-namespace:UniversityDesktop.Converters"
         xmlns:local="clr-namespace:UniversityDesktop"
+        xmlns:viewModel="clr-namespace:UniversityDesktop.ViewModels"
         mc:Ignorable="d"
         Title="Вход в систему" Height="400" Width="350" WindowStartupLocation="CenterScreen" Background="#E6E6E6" WindowStyle="SingleBorderWindow">
+    
+    <Window.DataContext>
+        <viewModel:ViewModel></viewModel:ViewModel>
+    </Window.DataContext>
+    
     <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -13,19 +20,22 @@
         
         <StackPanel Grid.Row="0">
             <Border CornerRadius="25" Background="White" Margin="20 20 20 10">
-                <TextBox Margin="20 20 20 20" 
+                <TextBox x:Name="LoginTextBox"
+                         Margin="20 20 20 20" 
                          Height="30" 
                          FontSize="15"
                          VerticalContentAlignment="Center"
                          Style="{StaticResource TextBoxStyle}"
-                         Text="{Binding }"/>
+                         Text="{Binding StudentLogin}"/>
             </Border>
             <Border CornerRadius="25" Background="White" Margin="20 20 20 10">
-                <TextBox Margin="20 20 20 20"
+                <TextBox x:Name="PasswordTextBox" 
+                         Margin="20 20 20 20"
                          Height="30"
                          FontSize="15"
                          VerticalContentAlignment="Center"
-                         Style="{StaticResource TextBoxStyle}"/>
+                         Style="{StaticResource TextBoxStyle}"
+                         Text="{Binding StudentPassword}"/>
             </Border>
             <Button Margin="20 20 20 10"
                     Height="70"
@@ -33,12 +43,13 @@
                     FontFamily="Arial"
                     Foreground="RoyalBlue"
                     Content="Войти"
-                    Style="{StaticResource ButtonStyle}" />
+                    Style="{StaticResource ButtonStyle}"
+                    Command="{Binding AuthenticationCommand}" />
             <TextBlock Margin="20 20 20 20"
-                     Height="40"
-                     Foreground="Red"
-                     Background="#E6E6E6"
-                     Text="Неверный логин или пароль" />
+                       Height="40"
+                       Foreground="Red"
+                       Background="#E6E6E6"
+                       Text="{Binding ErrorMsg, Mode=TwoWay}" />
         </StackPanel>
     </Grid>
 </Window>

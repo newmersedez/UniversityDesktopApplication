@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "suqlMU2ZqGfL3g29qzmIMVNQgYazTAW0vDdZpAfndLMF48vb94UE9E9n2vaboe6ouwPX5LInr/jIMJFN/gib4Q==",
+  "dgSpecHash": "c4whdntKzpVZB5fPaAzdVemIhvQ8I1Nm3D5nFDbwvl5Gr0WFXzpDuDlbL3lx+lsladQdk+/TwzWdADwiZiUdzg==",
   "success": true,
   "projectFilePath": "D:\\3 курс 5 семестр\\UniversityDesktopApplication\\UniversityDesktop\\UniversityDesktop\\UniversityDesktop.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Дмитрий\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
