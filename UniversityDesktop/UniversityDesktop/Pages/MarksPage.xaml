@@ -5,16 +5,19 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:UniversityDesktop.Pages"
       mc:Ignorable="d"
-      Title="MarksPage" Height="800" Width="800">
+      Title="MarksPage" d:DesignHeight="800" d:DesignWidth="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        
-        <TextBlock Text="Marks" 
-                   FontSize="50"/>
+        <DataGrid x:Name="MarksDataGrid"
+                  ColumnWidth="*"
+                  RowHeight="100"
+                  FontSize="20"
+                  FontFamily="Arial"
+                  Foreground="RoyalBlue"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Auto"
+                  Style="{StaticResource DataGridStyle}">
+        </DataGrid>
     </Grid>
 </Page>

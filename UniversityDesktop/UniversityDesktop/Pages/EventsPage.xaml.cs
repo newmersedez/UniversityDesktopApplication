@@ -14,6 +14,7 @@ namespace UniversityDesktop.Pages
         public EventsPage()
         {
             InitializeComponent(); 
+            
             string jsonFilePath = "\\Temp\\tmp.json";
             string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + jsonFilePath;
             string jsonString = File.ReadAllText(fullPath); 

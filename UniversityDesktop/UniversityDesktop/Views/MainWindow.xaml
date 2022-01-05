@@ -27,9 +27,15 @@
               Margin="20 20 20 20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="0.1*" />
+                <RowDefinition Height="0.3*" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
+            
+            <ScrollViewer Grid.Row="1"
+                          HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Auto">
+                <TextBlock Text="{Binding Test}" />
+            </ScrollViewer>
             
             <!-- Student info -->
             <Border Grid.Row="0" 

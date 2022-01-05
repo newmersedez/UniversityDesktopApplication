@@ -15,8 +15,8 @@ namespace UniversityDesktop.Pages
             string jsonFilePath = "\\Temp\\tmp.json";
             string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + jsonFilePath;
             string jsonString = File.ReadAllText(fullPath); 
-            List<Lesson> lessons = (List<Lesson>)Newtonsoft.Json.JsonConvert.DeserializeObject(jsonString, typeof(List<Lesson>));
-            this.LessonsDataGrid.ItemsSource = lessons;
+            List<Lesson> events = (List<Lesson>)Newtonsoft.Json.JsonConvert.DeserializeObject(jsonString, typeof(List<Lesson>));
+            this.LessonsDataGrid.ItemsSource = events;
         }
     }
 }

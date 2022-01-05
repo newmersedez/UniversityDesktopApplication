@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:UniversityDesktop.Views"
       mc:Ignorable="d"
-      Title="LessonTimetablePage" Height="800" Width="800">
+      Title="LessonTimetablePage" d:DesignHeight="800" d:DesignWidth="800">
     <Grid>
         <DataGrid x:Name="LessonsDataGrid"
                   ColumnWidth="*"
@@ -15,8 +15,6 @@
                   Foreground="RoyalBlue"
                   IsReadOnly="True"
                   CanUserAddRows="False"
-                  VerticalAlignment="Stretch"
-                  HorizontalAlignment="Stretch"
                   VerticalScrollBarVisibility="Auto"
                   HorizontalScrollBarVisibility="Auto"
                   Style="{StaticResource DataGridStyle}">

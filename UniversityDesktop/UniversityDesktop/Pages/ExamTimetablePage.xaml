@@ -15,8 +15,6 @@
                   Foreground="RoyalBlue"
                   IsReadOnly="True"
                   CanUserAddRows="False"
-                  VerticalAlignment="Stretch"
-                  HorizontalAlignment="Stretch"
                   VerticalScrollBarVisibility="Auto"
                   HorizontalScrollBarVisibility="Auto"
                   Style="{StaticResource DataGridStyle}">

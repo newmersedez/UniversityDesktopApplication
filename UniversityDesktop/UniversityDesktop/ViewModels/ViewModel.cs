@@ -251,22 +251,16 @@ namespace UniversityDesktop.ViewModels
                 _buffer = Encoding.ASCII.GetBytes("Events");
                 _socket.Send(_buffer);
 
-                byte[] recvBuffer = new byte[1024];
+                byte[] recvBuffer = new byte[10000];
                 int recvNumber = _socket.Receive(recvBuffer);
                 char[] chars = new char[recvNumber];
                 System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
                 int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
                 string jsonString = new string(chars);
 
-                _socket.Shutdown(SocketShutdown.Both);
-                _socket.Close();
-
                 string jsonFilePath = "\\Temp\\tmp.json";
                 string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + jsonFilePath;
-                using (StreamWriter writer = new StreamWriter(fullPath))  
-                {  
-                    writer.WriteLine(jsonString);
-                }
+                File.WriteAllText(fullPath, jsonString);
                 CurrentFramePage = _eventsPagePath;
             }
             catch (SocketException)
@@ -284,7 +278,7 @@ namespace UniversityDesktop.ViewModels
                 _buffer = Encoding.ASCII.GetBytes("Lessons");
                 _socket.Send(_buffer);
 
-                byte[] recvBuffer = new byte[1024];
+                byte[] recvBuffer = new byte[10000];
                 int recvNumber = _socket.Receive(recvBuffer);
                 char[] chars = new char[recvNumber];
                 System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
@@ -294,6 +288,9 @@ namespace UniversityDesktop.ViewModels
                 _socket.Shutdown(SocketShutdown.Both);
                 _socket.Close();
                 
+                string jsonFilePath = "\\Temp\\tmp.json";
+                string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + jsonFilePath;
+                File.WriteAllText(fullPath, jsonString);
                 CurrentFramePage = _lessonTimetablePagePath;
             }
             catch (SocketException)
@@ -312,7 +309,7 @@ namespace UniversityDesktop.ViewModels
                 _buffer = Encoding.ASCII.GetBytes("Exams");
                 _socket.Send(_buffer);
 
-                byte[] recvBuffer = new byte[1024];
+                byte[] recvBuffer = new byte[10000];
                 int recvNumber = _socket.Receive(recvBuffer);
                 char[] chars = new char[recvNumber];
                 System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
@@ -324,10 +321,7 @@ namespace UniversityDesktop.ViewModels
                 
                 string jsonFilePath = "\\Temp\\tmp.json";
                 string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + jsonFilePath;
-                using (StreamWriter writer = new StreamWriter(fullPath))  
-                {  
-                    writer.WriteLine(jsonString);
-                }
+                File.WriteAllText(fullPath, jsonString);
                 CurrentFramePage = _examTimetablePagePath;
             }
             catch (SocketException)
@@ -345,18 +339,20 @@ namespace UniversityDesktop.ViewModels
                 _buffer = Encoding.ASCII.GetBytes("Marks");
                 _socket.Send(_buffer);
 
-                byte[] recvBuffer = new byte[1024];
+                byte[] recvBuffer = new byte[10000];
                 int recvNumber = _socket.Receive(recvBuffer);
                 char[] chars = new char[recvNumber];
                 System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
                 int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
-                string recv = new string(chars);
+                string jsonString = new string(chars);
 
                 _socket.Shutdown(SocketShutdown.Both);
                 _socket.Close();
                 
+                string jsonFilePath = "\\Temp\\tmp.json";
+                string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + jsonFilePath;
+                File.WriteAllText(fullPath, jsonString);
                 CurrentFramePage = _MarksPagePath;
-                MessageBox.Show(recv, "RECIEVED");
             }
             catch (SocketException)
             {
