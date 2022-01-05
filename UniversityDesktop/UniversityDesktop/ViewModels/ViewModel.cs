@@ -204,7 +204,7 @@ namespace UniversityDesktop.ViewModels
         {
             if ( String.IsNullOrEmpty(_auth.StudentLogin) || String.IsNullOrEmpty(_auth.StudentPassword))
                 MessageBox.Show("Поля логина и пароля не должны быть пустыми", "Ошибка");
-            else
+            else if (!_authStatus)
             {
                 try
                 {
@@ -218,7 +218,7 @@ namespace UniversityDesktop.ViewModels
                     
                     // Send request to server
                     Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    socket.Connect(IPAddress.Loopback, Port);
+                    socket.ConnectAsync(IPAddress.Loopback, Port);
                     _buffer = Encoding.ASCII.GetBytes(jsonAuthString);
                     socket.Send(_buffer);
                 
@@ -274,159 +274,175 @@ namespace UniversityDesktop.ViewModels
 
         private void GetEvents()
         {
-            try
+            if (CurrentFramePage != _eventsPagePath)
             {
-                // Create new server request
-                ServerRequest request = new ServerRequest();
-                request.RequestName = "Events";
-                var jsonEventsString = JsonConvert.SerializeObject(request);
-                
-                // Send request to server
-                Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                socket.Connect(IPAddress.Loopback, Port);
-                _buffer = Encoding.ASCII.GetBytes(jsonEventsString);
-                socket.Send(_buffer);
+                try
+                {
+                    // Create new server request
+                    ServerRequest request = new ServerRequest();
+                    request.RequestName = "Events";
+                    var jsonEventsString = JsonConvert.SerializeObject(request);
 
-                // Recieve answer from server
-                byte[] recvBuffer = new byte[10000];
-                int recvNumber = socket.Receive(recvBuffer);
-                char[] chars = new char[recvNumber];
-                System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
-                int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
-                string jsonString = new string(chars);
-                socket.Shutdown(SocketShutdown.Both);
-                socket.Close();
+                    // Send request to server
+                    Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    socket.ConnectAsync(IPAddress.Loopback, Port);
+                    _buffer = Encoding.ASCII.GetBytes(jsonEventsString);
+                    socket.Send(_buffer);
 
-                // Load events page
-                string jsonFilePath = "\\Temp\\tmp.json";
-                string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + jsonFilePath;
-                File.WriteAllText(fullPath, jsonString);
-                CurrentFramePage = _eventsPagePath;
-            }
-            catch (SocketException)
-            {
-                MessageBox.Show("Failed to get server response", "Error");
+                    // Recieve answer from server
+                    byte[] recvBuffer = new byte[10000];
+                    int recvNumber = socket.Receive(recvBuffer);
+                    char[] chars = new char[recvNumber];
+                    System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
+                    int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
+                    string jsonString = new string(chars);
+                    socket.Shutdown(SocketShutdown.Both);
+                    socket.Close();
+
+                    // Load events page
+                    string jsonFilePath = "\\Temp\\tmp.json";
+                    string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName +
+                                      jsonFilePath;
+                    File.WriteAllTextAsync(fullPath, jsonString);
+                    CurrentFramePage = _eventsPagePath;
+                }
+                catch (SocketException)
+                {
+                    MessageBox.Show("Failed to get server response", "Error");
+                }
             }
         }
-        
+
         private void GetLessons()
         {
-            try
+            if (CurrentFramePage != _lessonTimetablePagePath)
             {
-                // Create new server request
-                ServerRequest request = new ServerRequest();
-                request.RequestName = "Lessons";
-                request.Args = new List<string>();
-                request.Args.Add(StudentGroup);
-                var jsonServerRequestString = JsonConvert.SerializeObject(request);
+                try
+                {
+                    // Create new server request
+                    ServerRequest request = new ServerRequest();
+                    request.RequestName = "Lessons";
+                    request.Args = new List<string>();
+                    request.Args.Add(StudentGroup);
+                    var jsonServerRequestString = JsonConvert.SerializeObject(request);
 
-                // Send request to server
-                Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                socket.Connect(IPAddress.Loopback, Port);
-                System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
-                _buffer = encoding.GetBytes(jsonServerRequestString);
-                socket.Send(_buffer);
+                    // Send request to server
+                    Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    socket.ConnectAsync(IPAddress.Loopback, Port);
+                    System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+                    _buffer = encoding.GetBytes(jsonServerRequestString);
+                    socket.Send(_buffer);
 
-                // Recieve answer from server
-                byte[] recvBuffer = new byte[10000];
-                int recvNumber = socket.Receive(recvBuffer);
-                char[] chars = new char[recvNumber];
-                System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
-                int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
-                string jsonString = new string(chars);
-                socket.Shutdown(SocketShutdown.Both);
-                socket.Close();
-                
-                // Load lessons page
-                string jsonFilePath = "\\Temp\\tmp.json";
-                string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + jsonFilePath;
-                File.WriteAllText(fullPath, jsonString);
-                CurrentFramePage = _lessonTimetablePagePath;
-            }
-            catch (SocketException)
-            {
-                MessageBox.Show("Failed to get server response", "Error");
+                    // Recieve answer from server
+                    byte[] recvBuffer = new byte[10000];
+                    int recvNumber = socket.Receive(recvBuffer);
+                    char[] chars = new char[recvNumber];
+                    System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
+                    int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
+                    string jsonString = new string(chars);
+                    socket.Shutdown(SocketShutdown.Both);
+                    socket.Close();
+
+                    // Load lessons page
+                    string jsonFilePath = "\\Temp\\tmp.json";
+                    string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName +
+                                      jsonFilePath;
+                    File.WriteAllTextAsync(fullPath, jsonString);
+                    CurrentFramePage = _lessonTimetablePagePath;
+                }
+                catch (SocketException)
+                {
+                    MessageBox.Show("Failed to get server response", "Error");
+                }
             }
         }
 
         private void GetExams()
         {
-            try
+            if (CurrentFramePage != _examTimetablePagePath)
             {
-                // Create new server request
-                ServerRequest request = new ServerRequest();
-                request.RequestName = "Exams";
-                request.Args = new List<string>();
-                request.Args.Add(StudentGroup);
-                var jsonServerRequestString = JsonConvert.SerializeObject(request);
-                
-                // Send request to server
-                Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                socket.Connect(IPAddress.Loopback, Port);
-                System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
-                _buffer = encoding.GetBytes(jsonServerRequestString);
-                socket.Send(_buffer);
+                try
+                {
+                    // Create new server request
+                    ServerRequest request = new ServerRequest();
+                    request.RequestName = "Exams";
+                    request.Args = new List<string>();
+                    request.Args.Add(StudentGroup);
+                    var jsonServerRequestString = JsonConvert.SerializeObject(request);
 
-                // Recieve answer from server
-                byte[] recvBuffer = new byte[10000];
-                int recvNumber = socket.Receive(recvBuffer);
-                char[] chars = new char[recvNumber];
-                System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
-                int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
-                string jsonString = new string(chars);
-                socket.Shutdown(SocketShutdown.Both);
-                socket.Close();
-                
-                // Load exams page
-                string jsonFilePath = "\\Temp\\tmp.json";
-                string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + jsonFilePath;
-                File.WriteAllText(fullPath, jsonString);
-                CurrentFramePage = _examTimetablePagePath;
-            }
-            catch (SocketException)
-            {
-                MessageBox.Show("Failed to get server response", "Error");
+                    // Send request to server
+                    Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    socket.ConnectAsync(IPAddress.Loopback, Port);
+                    System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+                    _buffer = encoding.GetBytes(jsonServerRequestString);
+                    socket.Send(_buffer);
+
+                    // Recieve answer from server
+                    byte[] recvBuffer = new byte[10000];
+                    int recvNumber = socket.Receive(recvBuffer);
+                    char[] chars = new char[recvNumber];
+                    System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
+                    int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
+                    string jsonString = new string(chars);
+                    socket.Shutdown(SocketShutdown.Both);
+                    socket.Close();
+
+                    // Load exams page
+                    string jsonFilePath = "\\Temp\\tmp.json";
+                    string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName +
+                                      jsonFilePath;
+                    File.WriteAllTextAsync(fullPath, jsonString);
+                    CurrentFramePage = _examTimetablePagePath;
+                }
+                catch (SocketException)
+                {
+                    MessageBox.Show("Failed to get server response", "Error");
+                }
             }
         }
-        
+
         private void GetMarks()
         {
-            try
+            if (CurrentFramePage != _MarksPagePath)
             {
-                // Create new server request
-                ServerRequest request = new ServerRequest();
-                request.RequestName = "Marks";
-                request.Args = new List<string>();
-                request.Args.Add(StudentLastname);
-                request.Args.Add(StudentName);
-                request.Args.Add(StudentPatronymic);
-                var jsonServerRequestString = JsonConvert.SerializeObject(request);
-                
-                // Send request to server
-                Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                socket.Connect(IPAddress.Loopback, Port);
-                System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
-                _buffer = encoding.GetBytes(jsonServerRequestString);
-                socket.Send(_buffer);
-            
-                // Recieve answer from server
-                byte[] recvBuffer = new byte[10000];
-                int recvNumber = socket.Receive(recvBuffer);
-                char[] chars = new char[recvNumber];
-                System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
-                int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
-                string jsonString = new string(chars);
-                socket.Shutdown(SocketShutdown.Both);
-                socket.Close();          
-                
-                string jsonFilePath = "\\Temp\\tmp.json";
-                string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + jsonFilePath;
-                File.WriteAllText(fullPath, jsonString);
-                CurrentFramePage = _MarksPagePath;
-            }
-            catch (SocketException)
-            {
-                MessageBox.Show("Failed to get server response", "Error");
+                try
+                {
+                    // Create new server request
+                    ServerRequest request = new ServerRequest();
+                    request.RequestName = "Marks";
+                    request.Args = new List<string>();
+                    request.Args.Add(StudentLastname);
+                    request.Args.Add(StudentName);
+                    request.Args.Add(StudentPatronymic);
+                    var jsonServerRequestString = JsonConvert.SerializeObject(request);
+
+                    // Send request to server
+                    Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    socket.ConnectAsync(IPAddress.Loopback, Port);
+                    System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+                    _buffer = encoding.GetBytes(jsonServerRequestString);
+                    socket.Send(_buffer);
+
+                    // Recieve answer from server
+                    byte[] recvBuffer = new byte[10000];
+                    int recvNumber = socket.Receive(recvBuffer);
+                    char[] chars = new char[recvNumber];
+                    System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
+                    int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
+                    string jsonString = new string(chars);
+                    socket.Shutdown(SocketShutdown.Both);
+                    socket.Close();
+
+                    string jsonFilePath = "\\Temp\\tmp.json";
+                    string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName +
+                                      jsonFilePath;
+                    File.WriteAllTextAsync(fullPath, jsonString);
+                    CurrentFramePage = _MarksPagePath;
+                }
+                catch (SocketException)
+                {
+                    MessageBox.Show("Failed to get server response", "Error");
+                }
             }
         }
 
