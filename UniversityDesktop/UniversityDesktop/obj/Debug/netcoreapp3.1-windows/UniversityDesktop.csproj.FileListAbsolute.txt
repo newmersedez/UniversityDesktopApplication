@@ -36,3 +36,5 @@ D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\Un
 D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop\obj\Debug\netcoreapp3.1-windows\Pages\ExamTimetablePage.baml
 D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop\obj\Debug\netcoreapp3.1-windows\Pages\LessonTimetablePage.baml
 D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop\obj\Debug\netcoreapp3.1-windows\Pages\MarksPage.baml
+D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop\obj\Debug\netcoreapp3.1-windows\Pages\EmptyPage.g.cs
+D:\3 курс 5 семестр\UniversityDesktopApplication\UniversityDesktop\UniversityDesktop\obj\Debug\netcoreapp3.1-windows\Pages\EmptyPage.baml

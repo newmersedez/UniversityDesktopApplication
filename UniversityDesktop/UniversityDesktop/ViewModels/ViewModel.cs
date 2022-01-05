@@ -24,6 +24,7 @@ namespace UniversityDesktop.ViewModels
         private readonly string _examTimetablePagePath = "../Pages/ExamTimetablePage.xaml";
         private readonly string _lessonTimetablePagePath = "../Pages/LessonTimetablePage.xaml";
         private readonly string _MarksPagePath = "../Pages/MarksPage.xaml";
+        private readonly string _emptyPage = "../Pages/EmptyPage.xaml";
 
         private Student _student = new Student();
         private readonly StudentAuthentication _auth = new StudentAuthentication();
@@ -35,6 +36,7 @@ namespace UniversityDesktop.ViewModels
         private ICommand _lessonTimetableButtonCommand;
         private ICommand _marksButtonCommand;
         private ICommand _authenticationCommand;
+        private ICommand _logoutCommand;
         
         private const int Port = 5430;
         private byte[] _buffer = new byte[1024];
@@ -54,7 +56,7 @@ namespace UniversityDesktop.ViewModels
             }
         }
 
-        public bool AuthStatus
+        private bool AuthStatus
         {
             get =>
                 _authStatus;
@@ -189,7 +191,10 @@ namespace UniversityDesktop.ViewModels
             _marksButtonCommand = new RelayCommand(_ => GetMarks(), _ => AuthStatus);
         
         public ICommand AuthenticationCommand =>
-            _authenticationCommand = new RelayCommand(_ => Authentication());
+            _authenticationCommand = new RelayCommand(_ => Authentication(), _ => !AuthStatus);
+
+        public ICommand LogoutCommand =>
+            _logoutCommand = new RelayCommand(_ => Logout(), _ => AuthStatus);
 
         #endregion
         
@@ -250,6 +255,21 @@ namespace UniversityDesktop.ViewModels
                     MessageBox.Show("Failed to get server response", "Error");
                 }
             }
+        }
+
+        private void Logout()
+        {
+            AuthStatus = !AuthStatus;
+            CurrentFramePage = _emptyPage;
+            
+            StudentLastname = "";
+            StudentName = "";
+            StudentPatronymic = "";
+            StudentGroup = "";
+            StudentFormOfEducation = "";
+            StudentDegree = "";
+            SpecialtyNumber = "";
+            SpecialtyName = "";
         }
 
         private void GetEvents()
