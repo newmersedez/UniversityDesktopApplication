@@ -203,19 +203,31 @@ namespace UniversityDesktop.ViewModels
             {
                 try
                 {
-                    var jsonAuthString = JsonConvert.SerializeObject(_auth);                
+                    // Create new server request
+                    ServerRequest request = new ServerRequest();
+                    request.RequestName = "Auth";
+                    request.Args = new List<string>();
+                    request.Args.Add(StudentLogin);
+                    request.Args.Add(StudentPassword);
+                    var jsonAuthString = JsonConvert.SerializeObject(request);
+                    
+                    // Send request to server
                     Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     socket.Connect(IPAddress.Loopback, Port);
                     _buffer = Encoding.ASCII.GetBytes(jsonAuthString);
                     socket.Send(_buffer);
                 
+                    // Recieve answer from server
                     byte[] recvBuffer = new byte[1024];
                     int recvNumber = socket.Receive(recvBuffer);
                     char[] chars = new char[recvNumber];
                     System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
                     int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
                     string jsonString = new string(chars);
+                    socket.Shutdown(SocketShutdown.Both);
+                    socket.Close();
 
+                    // Auth
                     if (jsonString == "[]")
                         MessageBox.Show("Неверный логин или пароль", "Ошибка");
                     else
@@ -232,8 +244,6 @@ namespace UniversityDesktop.ViewModels
                         SpecialtyName = _student.SpecialtyName;
                         AuthStatus = true;
                     }
-                    socket.Shutdown(SocketShutdown.Both);
-                    socket.Close();
                 }
                 catch (SocketException)
                 {
@@ -246,18 +256,28 @@ namespace UniversityDesktop.ViewModels
         {
             try
             {
-                Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                _socket.Connect(IPAddress.Loopback, Port);
-                _buffer = Encoding.ASCII.GetBytes("Events");
-                _socket.Send(_buffer);
+                // Create new server request
+                ServerRequest request = new ServerRequest();
+                request.RequestName = "Events";
+                var jsonEventsString = JsonConvert.SerializeObject(request);
+                
+                // Send request to server
+                Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                socket.Connect(IPAddress.Loopback, Port);
+                _buffer = Encoding.ASCII.GetBytes(jsonEventsString);
+                socket.Send(_buffer);
 
+                // Recieve answer from server
                 byte[] recvBuffer = new byte[10000];
-                int recvNumber = _socket.Receive(recvBuffer);
+                int recvNumber = socket.Receive(recvBuffer);
                 char[] chars = new char[recvNumber];
                 System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
                 int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
                 string jsonString = new string(chars);
+                socket.Shutdown(SocketShutdown.Both);
+                socket.Close();
 
+                // Load events page
                 string jsonFilePath = "\\Temp\\tmp.json";
                 string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + jsonFilePath;
                 File.WriteAllText(fullPath, jsonString);
@@ -273,21 +293,31 @@ namespace UniversityDesktop.ViewModels
         {
             try
             {
-                Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                _socket.Connect(IPAddress.Loopback, Port);
-                _buffer = Encoding.ASCII.GetBytes("Lessons");
-                _socket.Send(_buffer);
+                // Create new server request
+                ServerRequest request = new ServerRequest();
+                request.RequestName = "Lessons";
+                request.Args = new List<string>();
+                request.Args.Add(StudentGroup);
+                var jsonServerRequestString = JsonConvert.SerializeObject(request);
 
+                // Send request to server
+                Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                socket.Connect(IPAddress.Loopback, Port);
+                System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+                _buffer = encoding.GetBytes(jsonServerRequestString);
+                socket.Send(_buffer);
+
+                // Recieve answer from server
                 byte[] recvBuffer = new byte[10000];
-                int recvNumber = _socket.Receive(recvBuffer);
+                int recvNumber = socket.Receive(recvBuffer);
                 char[] chars = new char[recvNumber];
                 System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
                 int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
                 string jsonString = new string(chars);
-
-                _socket.Shutdown(SocketShutdown.Both);
-                _socket.Close();
+                socket.Shutdown(SocketShutdown.Both);
+                socket.Close();
                 
+                // Load lessons page
                 string jsonFilePath = "\\Temp\\tmp.json";
                 string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + jsonFilePath;
                 File.WriteAllText(fullPath, jsonString);
@@ -299,26 +329,35 @@ namespace UniversityDesktop.ViewModels
             }
         }
 
-        
         private void GetExams()
         {
             try
             {
-                Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                _socket.Connect(IPAddress.Loopback, Port);
-                _buffer = Encoding.ASCII.GetBytes("Exams");
-                _socket.Send(_buffer);
+                // Create new server request
+                ServerRequest request = new ServerRequest();
+                request.RequestName = "Exams";
+                request.Args = new List<string>();
+                request.Args.Add(StudentGroup);
+                var jsonServerRequestString = JsonConvert.SerializeObject(request);
+                
+                // Send request to server
+                Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                socket.Connect(IPAddress.Loopback, Port);
+                System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+                _buffer = encoding.GetBytes(jsonServerRequestString);
+                socket.Send(_buffer);
 
+                // Recieve answer from server
                 byte[] recvBuffer = new byte[10000];
-                int recvNumber = _socket.Receive(recvBuffer);
+                int recvNumber = socket.Receive(recvBuffer);
                 char[] chars = new char[recvNumber];
                 System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
                 int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
                 string jsonString = new string(chars);
-
-                _socket.Shutdown(SocketShutdown.Both);
-                _socket.Close();
+                socket.Shutdown(SocketShutdown.Both);
+                socket.Close();
                 
+                // Load exams page
                 string jsonFilePath = "\\Temp\\tmp.json";
                 string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + jsonFilePath;
                 File.WriteAllText(fullPath, jsonString);
@@ -334,20 +373,31 @@ namespace UniversityDesktop.ViewModels
         {
             try
             {
-                Socket _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                _socket.Connect(IPAddress.Loopback, Port);
-                _buffer = Encoding.ASCII.GetBytes("Marks");
-                _socket.Send(_buffer);
-
+                // Create new server request
+                ServerRequest request = new ServerRequest();
+                request.RequestName = "Marks";
+                request.Args = new List<string>();
+                request.Args.Add(StudentLastname);
+                request.Args.Add(StudentName);
+                request.Args.Add(StudentPatronymic);
+                var jsonServerRequestString = JsonConvert.SerializeObject(request);
+                
+                // Send request to server
+                Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                socket.Connect(IPAddress.Loopback, Port);
+                System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+                _buffer = encoding.GetBytes(jsonServerRequestString);
+                socket.Send(_buffer);
+            
+                // Recieve answer from server
                 byte[] recvBuffer = new byte[10000];
-                int recvNumber = _socket.Receive(recvBuffer);
+                int recvNumber = socket.Receive(recvBuffer);
                 char[] chars = new char[recvNumber];
                 System.Text.Decoder d = System.Text.Encoding.UTF8.GetDecoder();
                 int charLen = d.GetChars(recvBuffer, 0, recvNumber, chars, 0);
                 string jsonString = new string(chars);
-
-                _socket.Shutdown(SocketShutdown.Both);
-                _socket.Close();
+                socket.Shutdown(SocketShutdown.Both);
+                socket.Close();          
                 
                 string jsonFilePath = "\\Temp\\tmp.json";
                 string fullPath = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName + jsonFilePath;

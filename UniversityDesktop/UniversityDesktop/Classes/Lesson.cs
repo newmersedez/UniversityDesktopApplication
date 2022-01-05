@@ -1,6 +1,6 @@
 ﻿namespace UniversityDesktop.Classes
 {
-    public class Lesson
+    public sealed class Lesson
     {
         public string LessonDay { get; set; }
         public string LessonTime { get; set; }

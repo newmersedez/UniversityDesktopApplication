@@ -1,6 +1,6 @@
 ﻿namespace UniversityDesktop.Classes
 {
-    public class Event
+    public sealed class Event
     {
         public string EventName { get; set; }
         public string EventDate { get; set; }

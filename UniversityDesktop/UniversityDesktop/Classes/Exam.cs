@@ -1,6 +1,6 @@
 ﻿namespace UniversityDesktop.Classes
 {
-    public class Exam
+    public sealed class Exam
     {
         public string SubjectName { get; set; }
         public string GroupName { get; set; }
