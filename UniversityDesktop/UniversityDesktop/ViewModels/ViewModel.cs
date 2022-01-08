@@ -208,7 +208,9 @@ namespace UniversityDesktop.ViewModels
             
             if ( String.IsNullOrEmpty(_auth.StudentLogin) || String.IsNullOrEmpty(_auth.StudentPassword))
                 MessageBox.Show("Поля логина и пароля не должны быть пустыми", "Ошибка");
-            else if (!_authStatus)
+            else if (StudentLogin == "admin" && StudentPassword == "admin")
+                MessageBox.Show("Данный клиент не поддерживает админ-панель, используйте другой", "Ошибка");
+            else
             {
                 try
                 {
