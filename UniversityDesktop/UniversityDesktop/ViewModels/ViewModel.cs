@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Newtonsoft.Json;
 using UniversityDesktop.Classes;
@@ -162,7 +163,7 @@ namespace UniversityDesktop.ViewModels
                 RaisePropertyChanged(nameof(StudentLogin));
             }
         }
-
+        
         public string StudentPassword
         {
             get =>
@@ -191,7 +192,7 @@ namespace UniversityDesktop.ViewModels
             _marksButtonCommand = new RelayCommand(_ => GetMarks(), _ => AuthStatus);
         
         public ICommand AuthenticationCommand =>
-            _authenticationCommand = new RelayCommand(_ => Authentication(), _ => !AuthStatus);
+            _authenticationCommand = new RelayCommand(param => Authentication(param), _ => !AuthStatus);
 
         public ICommand LogoutCommand =>
             _logoutCommand = new RelayCommand(_ => Logout(), _ => AuthStatus);
@@ -200,8 +201,11 @@ namespace UniversityDesktop.ViewModels
         
         #region Functions
 
-        private void Authentication()
+        private void Authentication(object param)
         {
+            var passwordBox = param as PasswordBox;
+            StudentPassword = passwordBox.Password;
+            
             if ( String.IsNullOrEmpty(_auth.StudentLogin) || String.IsNullOrEmpty(_auth.StudentPassword))
                 MessageBox.Show("Поля логина и пароля не должны быть пустыми", "Ошибка");
             else if (!_authStatus)

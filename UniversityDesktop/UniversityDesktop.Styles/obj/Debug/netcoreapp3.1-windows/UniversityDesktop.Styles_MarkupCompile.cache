@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 
-3-1095614722
+4428421352
 
 
 192-1533232326
-Styles\ButtonStyle.xaml;Styles\DataGridStyle.xaml;Styles\TextBoxStyle.xaml;
+Styles\ButtonStyle.xaml;Styles\DataGridStyle.xaml;Styles\PasswordBoxStyles.xaml;Styles\TextBoxStyle.xaml;
 
 False
 

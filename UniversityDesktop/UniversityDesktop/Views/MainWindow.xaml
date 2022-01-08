@@ -66,13 +66,12 @@
                                 <Border CornerRadius="15"
                                         Margin="0 10 0 0"
                                         Background="White">
-                                    <TextBox Margin="5"
-                                                     Height="20"
-                                                     HorizontalContentAlignment="Center"
-                                                     VerticalContentAlignment="Center"
-                                                     FontSize="15"
-                                                     Style="{StaticResource TextBoxStyle}"
-                                                     Text="{Binding StudentPassword}" />
+                                    <PasswordBox x:Name="StudentPasswordBox" Margin="5"
+                                                 Height="20"
+                                                 HorizontalContentAlignment="Center"
+                                                 VerticalContentAlignment="Center"
+                                                 FontSize="15"
+                                                 Style="{StaticResource PasswordBoxStyle}"/>
                                 </Border>
                             </StackPanel>
                             <StackPanel Grid.Column="1"
@@ -86,7 +85,8 @@
                                         Margin="0 20 20 0"
                                         Content="Войти"
                                         Style="{StaticResource ButtonStyle}"
-                                        Command="{Binding AuthenticationCommand}"/>
+                                        Command="{Binding AuthenticationCommand}"
+                                        CommandParameter="{Binding ElementName=StudentPasswordBox}"/>
                                 <Button Height="40"
                                         Width="80"
                                         FontSize="15"
